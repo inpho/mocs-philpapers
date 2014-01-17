@@ -13,14 +13,17 @@ def print_titles(data_path):
             record = json.load(jsonfile)
             print record['title']
 
-
 if __name__ == '__main__':
     import sys
-
-    # if a data path is manually specified, use it
+      
+  # if a data path is manually specified, use it
     if sys.argv[-1] != 'philpapers.py':
-        philpapers_data_path = sys.argv[-1]
+        data_path = sys.argv[-1]
     else:
         # if not go with the inpho config file defaults
-        data_path = config.get('general', 'data_path')
-        philpapers_data_path = os.path.join(data_path, 'philpapers')
+        # data_path = config.get('general', 'data_path')
+        # philpapers_data_path = os.path.join(data_path, 'philpapers')
+        pass
+    print_titles(data_path)
+
+
