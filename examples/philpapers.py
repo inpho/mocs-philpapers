@@ -12,8 +12,26 @@ def print_titles(data_path):
         with open(filename) as jsonfile:
             record = json.load(jsonfile)
             print record['title']
+            make_files(record)
 
-if __name__ == '__main__':
+def make_files(record):
+    '''Takes the filenames, adds the XML extension, and creates a new file with that
+    name, and adds the version header.'''
+    
+    filename = record['title'] + '.xml'
+    target = open(filename, 'wb')
+    target.write( '<?xml version="1.01"?>')
+    target.write("\n\n")
+    target.write(record['title'])
+
+
+#def add_to_files(record):
+#     '''Takes the json content and prints it onto the newly created file'''
+#    pass
+
+
+
+if __name__ == '__main__': 
     import sys
       
   # if a data path is manually specified, use it
@@ -25,5 +43,13 @@ if __name__ == '__main__':
         # philpapers_data_path = os.path.join(data_path, 'philpapers')
         pass
     print_titles(data_path)
+
+#print file names of all json files - done
+#create new file with filename + XML extension - done
+#create a list of all possible tags for 400,000 files
+#   keys lists all the tags for one file
+#   return None if tag is not available
+#write the xml code into file - working on
+#save the file
 
 
