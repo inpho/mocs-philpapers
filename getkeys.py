@@ -9,7 +9,7 @@ for filename in glob(os.path.join(data_path, "*.json")):
     with open(filename) as jsonfile:
         data = json.load(jsonfile)
 
-        # inserts any new kes that might appear
+        # inserts any new keys that might appear
         fields.update(data.keys())
 
 # print information to command line
