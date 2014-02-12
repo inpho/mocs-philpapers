@@ -43,8 +43,10 @@ def make_map():
     xmlmap["school"]= "school"
 #    xmlmap["authors"]="author"
     xmlmap["title"] = "title"
+    xmlmap["authors"] = "LISTauthor"
     
     return xmlmap;
+     
 
 #creates a manually assigned Element tree
 def elementTree():
@@ -60,14 +62,16 @@ def genericElementTree(xmlmap, record):
     root = ET.Element('dblp')
     article = ET.SubElement(root, 'article')
     for jsonkey, value in record.iteritems():
-        # elementname = xmlmap[jsonkey]
-        # element = ET.SubElement(article,elementname)
-        # element.text = value
         try:
-            ET.SubElement(article,xmlmap[jsonkey]).text = value
+            tagname = xmlmap[jsonkey]
+            if tagname.startswith("LIST"):
+                tagname = tagname[4:] # trim LIST from the tagname
+                for thing in value:
+                    ET.SubElement(article,tagname).text = thing
+            else:
+                ET.SubElement(article,tagname).text = value
         except KeyError:
             pass
-       #ET.SubElement(article,key).text = value
     ET.dump(root)
 
 if __name__ == '__main__': 
