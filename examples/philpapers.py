@@ -12,15 +12,12 @@ def print_titles(data_path):
         # open the file, parse the json, print the title, close the file
         with open(filename) as jsonfile:
             record = json.load(jsonfile)
-     #       print record['journal_or_collection_title']
-     #       make_files(record)
-     #       print (str(record.keys()))
             xmlmap = make_map()
-     #       for key in xmlmap.keys():
-     #           print key
-     #      elementTree()
             genericElementTree(xmlmap,record)
-            
+    somename = "Pusateri, Jessie"
+    print reorder(somename)
+
+
 def make_files(record):
     '''Takes the filenames, adds the XML extension, and creates a new file with that
     name, and adds the version header.'''
@@ -41,10 +38,9 @@ def make_map():
     xmlmap["pages"] = "pages"
     xmlmap["volume"]= "volume"
     xmlmap["school"]= "school"
-#    xmlmap["authors"]="author"
     xmlmap["title"] = "title"
     xmlmap["authors"] = "LISTauthor"
-    
+    xmlmap["editors"] = "LISTeditor"
     return xmlmap;
      
 
@@ -57,6 +53,14 @@ def elementTree():
     ET.SubElement(article,'url').text =  "db/journals/ai/ai206.html#MarquisS14"
     ET.dump(root)
 
+#given string "LASTNAME, FIRSTNAME", prints "FIRSTNAME LASTNAME"
+def reorder(bname):
+    switch=[1,0]
+    nameaslist = bname.split(', ')
+    nameaslist = [nameaslist[i] for i in switch]
+    for item in nameaslist:
+         print item,
+
 #iterates through a dictionary and use the xmlmap to create an Element tree
 def genericElementTree(xmlmap, record):
     root = ET.Element('dblp')
@@ -66,8 +70,9 @@ def genericElementTree(xmlmap, record):
             tagname = xmlmap[jsonkey]
             if tagname.startswith("LIST"):
                 tagname = tagname[4:] # trim LIST from the tagname
-                for thing in value:
-                    ET.SubElement(article,tagname).text = thing
+                print value
+                for thing in value:                
+                    ET.SubElement(article,tagname).text = thing 
             else:
                 ET.SubElement(article,tagname).text = value
         except KeyError:
