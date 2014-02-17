@@ -1,3 +1,5 @@
+'''The XML Schema for DBLP is located at dblp.uni-trier.de/xml/dblp.dtd'''
+
 from glob import iglob as glob
 import json
 import os.path
@@ -30,7 +32,8 @@ def make_files(xmlmap, record):
 #builds a map from JSON fields to XML properties
 def make_map():
     xmlmap = dict()
-    xmlmap["journal_or_collection_title"] = "title"
+    xmlmap["journal_or_collection_title"] = "journal"
+    xmlmap["title"] = "title"
     xmlmap["publication_year_or_status"] = "year"
     xmlmap["url"] = "url"
     xmlmap["pages"] = "pages"
