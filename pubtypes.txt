@@ -1,0 +1,9 @@
+json,xml
+chapter,incollection
+manuscript,article
+unknown,article
+journal,article
+online collection,www
+book,book
+thesis,phdthesis
+online manuscript,www
