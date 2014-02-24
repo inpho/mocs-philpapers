@@ -5,11 +5,11 @@ import json
 import os.path
 import xml.etree.ElementTree as ET
 
-def print_titles(data_path):
+def process_dir(data_path):
     ''' Takes a Philpapers data path, iterates through all JSON records in that
     folder, parses each and prints the title'''
     # search for all json files - the glob function iterates through a folder
-    data_path = os.path.join(data_path, 'sample.json')
+    data_path = os.path.join(data_path, '*.json')
     for i,filename in enumerate(glob(data_path)):
         # open the file, parse the json, print the title, close the file
         with open(filename) as jsonfile:
@@ -23,7 +23,7 @@ def make_files(xmlmap, record):
     '''Takes the filenames, adds the XML extension, and creates a new file with that
     name, and adds the version header.'''
     
-    filename = record['journal_or_collection_title'] + '.xml'
+    filename = record['id'] + '.xml'
     target = open(filename, 'wb')
     target.write( '<?xml version="1.01"?>')
     target.write("\n\n")
@@ -74,7 +74,7 @@ def genericElementTree(xmlmap, record):
                     ET.SubElement(article,tagname).text = value
         except KeyError:
             pass
- #   ET.dump(root)
+    ET.dump(root)
     return ET.tostring(root)
 
 if __name__ == '__main__': 
